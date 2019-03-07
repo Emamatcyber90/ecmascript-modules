@@ -310,6 +310,7 @@ EnvironmentOptionsParser::EnvironmentOptionsParser() {
             "top-level module type name",
             &EnvironmentOptions::module_type,
             kAllowedInEnvironment);
+  AddAlias("-a", { "--type", "auto" });
   AddAlias("-m", { "--type", "module" });
 
   AddOption("--check",
