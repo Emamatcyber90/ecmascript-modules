@@ -511,17 +511,36 @@ added: v2.4.0
 
 Track heap object allocations for heap snapshots.
 
-### `-m`, `--type=type`
+### `--type=type`, `-m`, `-a`
 
 Used with `--experimental-modules`, this configures Node.js to interpret the
 initial entry point as CommonJS or as an ES module.
 
-Valid values are `"commonjs"` and `"module"`. The default is to infer from
-the file extension and the `"type"` field in the nearest parent `package.json`.
+Valid values are `"commonjs"`, `"module"`, `"auto"`.
 
-Works for executing a file as well as `--eval`, `--print`, `STDIN`.
+- `-m` is an alias for `--type=module`.
+- `-a` is an alias for `--type=auto`.
 
-`-m` is an alias for `--type=module`.
+`--type=commonjs` configures Node.js to interpret the initial entry point as
+CommonJS. This is the same as not specifying `--type` at all, except that an
+error will be thrown if `--type=commonjs` is used with an `.mjs` file or with a
+`.js` file whose [nearest parent `package.json`][package scope] contains
+`"type": "module"`.
+
+`--type=module` or `-m` configures Node.js to interpret the initial entry point
+as an ES module. This will throw an error if used with a `.cjs` file or a `.js`
+file whose nearest parent `package.json` contains `"type": "commonjs"`.
+
+`--type=auto` or `-a` configures Node.js to interpret an _ambiguous_ initial
+entry point (no explicit file extension like `.mjs` or `.cjs`, no `"type"` field
+in the nearest parent `package.json`) as an ES module if Node.js finds an
+`import` or `export` statement in the initial entry point's source code. (Note
+that dynamic `import()` expressions are different from `import` statements;
+`import()` is allowed in both CommonJS and ES modules.) If no `import` or
+`export` statements are found, the initial entry point is interpreted as
+CommonJS.
+
+The `--type` flag may also be used with `--eval`, `--print` or `STDIN`.
 
 ### `--use-bundled-ca`, `--use-openssl-ca`
 <!-- YAML
@@ -912,6 +931,7 @@ greater than `4` (its current default value). For more information, see the
 [debugging security implications]: https://nodejs.org/en/docs/guides/debugging-getting-started/#security-implications
 [emit_warning]: process.html#process_process_emitwarning_warning_type_code_ctor
 [experimental ECMAScript Module]: esm.html#esm_experimental_loader_hooks
+[package scope]: esm.html#package_scope_and_file_extensions
 [libuv threadpool documentation]: http://docs.libuv.org/en/latest/threadpool.html
 [remote code execution]: https://www.owasp.org/index.php/Code_Injection
 [secureProtocol]: tls.html#tls_tls_createsecurecontext_options

@@ -45,9 +45,9 @@ node --experimental-modules --type=module my-app.js
 node --experimental-modules -m my-app.js
 ```
 
-For completeness there is also `--type=commonjs`, for explicitly running a `.js`
-file as CommonJS. This is the default behavior if `--type` or `-m` is
-unspecified.
+For completeness there is also `--type=commonjs`, for explicitly interpreting
+input as CommonJS; and `--type=auto`, for running input as an ES module if it
+can be detected as such. See [`--type`][].
 
 The `--type=module` or `-m` flags can also be used to configure Node.js to treat
 as an ES module input sent in via `--eval` or `--print` (or `-e` or `-p`) or
@@ -662,6 +662,7 @@ READ_PACKAGE_JSON(_packageURL_)
 </details>
 
 [Node.js EP for ES Modules]: https://github.com/nodejs/node-eps/blob/master/002-es-modules.md
+[`--type`]: cli.html#typetype_m_a
 [dynamic instantiate hook]: #esm_dynamic_instantiate_hook
 [`module.createRequireFromPath()`]: modules.html#modules_module_createrequirefrompath_filename
 [`import.meta.url`]: #esm_import_meta
