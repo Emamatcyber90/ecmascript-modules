@@ -522,10 +522,10 @@ Valid values are `"commonjs"`, `"module"`, `"auto"`.
 - `-a` is an alias for `--type=auto`.
 
 `--type=commonjs` configures Node.js to interpret the initial entry point as
-CommonJS. This is the same as not specifying `--type` at all, except that an
-error will be thrown if `--type=commonjs` is used with an `.mjs` file or with a
-`.js` file whose [nearest parent `package.json`][package scope] contains
-`"type": "module"`.
+CommonJS. This is like not specifying `--type` at all, except that an error will
+be thrown if `--type=commonjs` is used with an `.mjs` file or with a `.js` file
+whose [nearest parent `package.json`][package scope] contains `"type":
+"module"`.
 
 `--type=module` or `-m` configures Node.js to interpret the initial entry point
 as an ES module. This will throw an error if used with a `.cjs` file or a `.js`
@@ -540,7 +540,7 @@ that dynamic `import()` expressions are different from `import` statements;
 `export` statements are found, the initial entry point is interpreted as
 CommonJS.
 
-The `--type` flag may also be used with `--eval`, `--print` or `STDIN`.
+The `--type` flag may also be used with `--eval`, `--print`, or `STDIN`.
 
 ### `--use-bundled-ca`, `--use-openssl-ca`
 <!-- YAML
